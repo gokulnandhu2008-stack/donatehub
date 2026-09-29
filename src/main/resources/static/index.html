@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>DonateHub Dashboard</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -19,26 +22,58 @@
             color: #333;
         }
 
+        /* =========================
+           HEADER
+        ========================== */
+
         header {
             background: #2c3e50;
             color: white;
-            padding: 20px 40px;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        header h1 {
+        .header-left h1 {
             font-size: 28px;
         }
 
-        header p {
+        .header-left p {
             margin-top: 5px;
             color: #dfe6e9;
         }
+
+        .logout-btn {
+            background: white;
+            color: #2c3e50;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            opacity: 0.85;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================== */
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 30px auto;
         }
+
+
+        /* =========================
+           DASHBOARD CARDS
+        ========================== */
 
         .cards {
             display: grid;
@@ -65,6 +100,11 @@
             color: #777;
         }
 
+
+        /* =========================
+           SECTION
+        ========================== */
+
         .section {
             background: white;
             padding: 25px;
@@ -77,6 +117,11 @@
             margin-bottom: 20px;
             color: #2c3e50;
         }
+
+
+        /* =========================
+           QUICK ACTIONS
+        ========================== */
 
         .quick-actions {
             display: flex;
@@ -98,16 +143,22 @@
             opacity: 0.85;
         }
 
+
+        /* =========================
+           FORMS
+        ========================== */
+
         .form-container {
             background: #f8f9fa;
             border: 1px solid #ddd;
             padding: 20px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-bottom: 25px;
         }
 
         .form-container h2 {
             margin-bottom: 20px;
+            color: #2c3e50;
         }
 
         .form-container label {
@@ -131,6 +182,15 @@
             display: flex;
             gap: 10px;
         }
+
+        .cancel-btn {
+            background: #777;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================== */
 
         table {
             width: 100%;
@@ -161,19 +221,32 @@
             margin-right: 5px;
         }
 
+
+        /* =========================
+           FOOTER
+        ========================== */
+
         footer {
             text-align: center;
             padding: 20px;
             color: #777;
         }
 
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
         @media (max-width: 800px) {
+
             .cards {
                 grid-template-columns: repeat(2, 1fr);
             }
+
         }
 
         @media (max-width: 500px) {
+
             .cards {
                 grid-template-columns: 1fr;
             }
@@ -181,91 +254,237 @@
             .container {
                 width: 95%;
             }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .header-left h1 {
+                font-size: 22px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+<!-- =========================================
+     LOGIN CHECK
+========================================= -->
+
+<script>
+
+    if (
+        localStorage.getItem("donatehubLoggedIn")
+        !== "true"
+    ) {
+
+        window.location.href = "/login.html";
+
+    }
+
+</script>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header>
-    <h1>DonateHub</h1>
-    <p>Donation Drive Management System</p>
+
+    <div class="header-left">
+
+        <h1>DonateHub</h1>
+
+        <p>
+            Donation Drive Management System
+        </p>
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        onclick="logout()">
+
+        Logout
+
+    </button>
+
 </header>
+
+
+<!-- =========================================
+     MAIN CONTAINER
+========================================= -->
 
 <div class="container">
 
-    <!-- DASHBOARD CARDS -->
+
+    <!-- =====================================
+         DASHBOARD CARDS
+    ====================================== -->
+
     <div class="cards">
 
-        <div class="card">
-            <h2 id="totalDrives">0</h2>
-            <p>Total Drives</p>
-        </div>
 
         <div class="card">
-            <h2 id="totalDonors">0</h2>
-            <p>Total Donors</p>
+
+            <h2 id="totalDrives">
+                0
+            </h2>
+
+            <p>
+                Total Drives
+            </p>
+
         </div>
 
-        <div class="card">
-            <h2 id="totalRecipients">0</h2>
-            <p>Total Recipients</p>
-        </div>
 
         <div class="card">
-            <h2 id="totalItems">0</h2>
-            <p>Total Items</p>
+
+            <h2 id="totalDonors">
+                0
+            </h2>
+
+            <p>
+                Total Donors
+            </p>
+
         </div>
+
+
+        <div class="card">
+
+            <h2 id="totalRecipients">
+                0
+            </h2>
+
+            <p>
+                Total Recipients
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2 id="totalItems">
+                0
+            </h2>
+
+            <p>
+                Total Items
+            </p>
+
+        </div>
+
 
     </div>
 
 
-    <!-- QUICK ACTIONS -->
+    <!-- =====================================
+         QUICK ACTIONS
+    ====================================== -->
+
     <div class="section">
 
-        <h2>Quick Actions</h2>
+        <h2>
+            Quick Actions
+        </h2>
+
 
         <div class="quick-actions">
 
+
             <button onclick="showDriveForm()">
+
                 Add Drive
+
             </button>
+
 
             <button onclick="showDonorForm()">
+
                 Add Donor
+
             </button>
+
 
             <button onclick="showRecipientForm()">
+
                 Add Recipient
+
             </button>
 
+
             <button onclick="showItemForm()">
+
                 Add Item
+
             </button>
+
 
         </div>
 
     </div>
 
 
-    <!-- DRIVE FORM -->
-    <div id="driveForm" class="form-container" style="display:none;">
+    <!-- =====================================
+         DRIVE FORM
+    ====================================== -->
 
-        <h2>Add Donation Drive</h2>
+    <div
+        id="driveForm"
+        class="form-container"
+        style="display:none;">
 
-        <label for="driveName">Drive Name</label>
-        <input type="text" id="driveName"
-               placeholder="Enter drive name">
+        <h2>
+            Add Donation Drive
+        </h2>
 
-        <label for="driveLocation">Location</label>
-        <input type="text" id="driveLocation"
-               placeholder="Enter location">
 
-        <label for="driveStart">Start Date</label>
-        <input type="date" id="driveStart">
+        <label for="driveName">
+            Drive Name
+        </label>
 
-        <label for="driveEnd">End Date</label>
-        <input type="date" id="driveEnd">
+        <input
+            type="text"
+            id="driveName"
+            placeholder="Enter drive name">
+
+
+        <label for="driveLocation">
+            Location
+        </label>
+
+        <input
+            type="text"
+            id="driveLocation"
+            placeholder="Enter location">
+
+
+        <label for="driveStart">
+            Start Date
+        </label>
+
+        <input
+            type="date"
+            id="driveStart">
+
+
+        <label for="driveEnd">
+            End Date
+        </label>
+
+        <input
+            type="date"
+            id="driveEnd">
+
 
         <div class="form-buttons">
 
@@ -273,8 +492,12 @@
                 Save Drive
             </button>
 
-            <button onclick="hideDriveForm()">
+            <button
+                class="cancel-btn"
+                onclick="hideDriveForm()">
+
                 Cancel
+
             </button>
 
         </div>
@@ -282,26 +505,59 @@
     </div>
 
 
-    <!-- DONOR FORM -->
-    <div id="donorForm" class="form-container" style="display:none;">
+    <!-- =====================================
+         DONOR FORM
+    ====================================== -->
 
-        <h2>Add Donor</h2>
+    <div
+        id="donorForm"
+        class="form-container"
+        style="display:none;">
 
-        <label for="donorName">Name</label>
-        <input type="text" id="donorName"
-               placeholder="Enter donor name">
+        <h2>
+            Add Donor
+        </h2>
 
-        <label for="donorPhone">Phone</label>
-        <input type="text" id="donorPhone"
-               placeholder="Enter phone number">
 
-        <label for="donorEmail">Email</label>
-        <input type="email" id="donorEmail"
-               placeholder="Enter email">
+        <label for="donorName">
+            Name
+        </label>
 
-        <label for="donorAddress">Address</label>
-        <input type="text" id="donorAddress"
-               placeholder="Enter address">
+        <input
+            type="text"
+            id="donorName"
+            placeholder="Enter donor name">
+
+
+        <label for="donorPhone">
+            Phone
+        </label>
+
+        <input
+            type="text"
+            id="donorPhone"
+            placeholder="Enter phone number">
+
+
+        <label for="donorEmail">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="donorEmail"
+            placeholder="Enter email">
+
+
+        <label for="donorAddress">
+            Address
+        </label>
+
+        <input
+            type="text"
+            id="donorAddress"
+            placeholder="Enter address">
+
 
         <div class="form-buttons">
 
@@ -309,8 +565,12 @@
                 Save Donor
             </button>
 
-            <button onclick="hideDonorForm()">
+            <button
+                class="cancel-btn"
+                onclick="hideDonorForm()">
+
                 Cancel
+
             </button>
 
         </div>
@@ -318,26 +578,59 @@
     </div>
 
 
-    <!-- RECIPIENT FORM -->
-    <div id="recipientForm" class="form-container" style="display:none;">
+    <!-- =====================================
+         RECIPIENT FORM
+    ====================================== -->
 
-        <h2>Add Recipient</h2>
+    <div
+        id="recipientForm"
+        class="form-container"
+        style="display:none;">
 
-        <label for="recipientName">Name</label>
-        <input type="text" id="recipientName"
-               placeholder="Enter recipient name">
+        <h2>
+            Add Recipient
+        </h2>
 
-        <label for="recipientPhone">Phone</label>
-        <input type="text" id="recipientPhone"
-               placeholder="Enter phone number">
 
-        <label for="recipientEmail">Email</label>
-        <input type="email" id="recipientEmail"
-               placeholder="Enter email">
+        <label for="recipientName">
+            Name
+        </label>
 
-        <label for="recipientAddress">Address</label>
-        <input type="text" id="recipientAddress"
-               placeholder="Enter address">
+        <input
+            type="text"
+            id="recipientName"
+            placeholder="Enter recipient name">
+
+
+        <label for="recipientPhone">
+            Phone
+        </label>
+
+        <input
+            type="text"
+            id="recipientPhone"
+            placeholder="Enter phone number">
+
+
+        <label for="recipientEmail">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="recipientEmail"
+            placeholder="Enter email">
+
+
+        <label for="recipientAddress">
+            Address
+        </label>
+
+        <input
+            type="text"
+            id="recipientAddress"
+            placeholder="Enter address">
+
 
         <div class="form-buttons">
 
@@ -345,8 +638,12 @@
                 Save Recipient
             </button>
 
-            <button onclick="hideRecipientForm()">
+            <button
+                class="cancel-btn"
+                onclick="hideRecipientForm()">
+
                 Cancel
+
             </button>
 
         </div>
@@ -354,16 +651,33 @@
     </div>
 
 
-    <!-- ITEM FORM -->
-    <div id="itemForm" class="form-container" style="display:none;">
+    <!-- =====================================
+         ITEM FORM
+    ====================================== -->
 
-        <h2>Add Donation Item</h2>
+    <div
+        id="itemForm"
+        class="form-container"
+        style="display:none;">
 
-        <label for="itemName">Item Name</label>
-        <input type="text" id="itemName"
-               placeholder="Enter item name">
+        <h2>
+            Add Donation Item
+        </h2>
 
-        <label for="itemCategory">Category</label>
+
+        <label for="itemName">
+            Item Name
+        </label>
+
+        <input
+            type="text"
+            id="itemName"
+            placeholder="Enter item name">
+
+
+        <label for="itemCategory">
+            Category
+        </label>
 
         <select id="itemCategory">
 
@@ -385,12 +699,17 @@
 
         </select>
 
-        <label for="itemQuantity">Quantity</label>
 
-        <input type="number"
-               id="itemQuantity"
-               min="1"
-               placeholder="Enter quantity">
+        <label for="itemQuantity">
+            Quantity
+        </label>
+
+        <input
+            type="number"
+            id="itemQuantity"
+            min="1"
+            placeholder="Enter quantity">
+
 
         <div class="form-buttons">
 
@@ -398,8 +717,12 @@
                 Save Item
             </button>
 
-            <button onclick="hideItemForm()">
+            <button
+                class="cancel-btn"
+                onclick="hideItemForm()">
+
                 Cancel
+
             </button>
 
         </div>
@@ -407,33 +730,54 @@
     </div>
 
 
-    <!-- DONATION ITEMS -->
+    <!-- =====================================
+         DONATION ITEMS TABLE
+    ====================================== -->
+
     <div class="section">
 
-        <h2>Donation Items</h2>
+        <h2>
+            Donation Items
+        </h2>
+
 
         <table>
 
             <thead>
 
                 <tr>
+
                     <th>ID</th>
+
                     <th>Item Name</th>
+
                     <th>Category</th>
+
                     <th>Quantity</th>
+
                     <th>Collected</th>
+
                     <th>Distributed</th>
+
                     <th>Action</th>
+
                 </tr>
 
             </thead>
+
 
             <tbody id="itemsTable">
 
                 <tr>
-                    <td colspan="7" class="empty">
+
+                    <td
+                        colspan="7"
+                        class="empty">
+
                         No items available
+
                     </td>
+
                 </tr>
 
             </tbody>
@@ -443,30 +787,48 @@
     </div>
 
 
-    <!-- AVAILABLE STOCK -->
+    <!-- =====================================
+         AVAILABLE STOCK TABLE
+    ====================================== -->
+
     <div class="section">
 
-        <h2>Available Stock</h2>
+        <h2>
+            Available Stock
+        </h2>
+
 
         <table>
 
             <thead>
 
                 <tr>
+
                     <th>ID</th>
+
                     <th>Item Name</th>
+
                     <th>Category</th>
+
                     <th>Quantity</th>
+
                 </tr>
 
             </thead>
+
 
             <tbody id="stockTable">
 
                 <tr>
-                    <td colspan="4" class="empty">
+
+                    <td
+                        colspan="4"
+                        class="empty">
+
                         No stock available
+
                     </td>
+
                 </tr>
 
             </tbody>
@@ -476,31 +838,50 @@
     </div>
 
 
-    <!-- DONATION DRIVES -->
+    <!-- =====================================
+         DONATION DRIVES TABLE
+    ====================================== -->
+
     <div class="section">
 
-        <h2>Donation Drives</h2>
+        <h2>
+            Donation Drives
+        </h2>
+
 
         <table>
 
             <thead>
 
                 <tr>
+
                     <th>ID</th>
+
                     <th>Drive Name</th>
+
                     <th>Location</th>
+
                     <th>Start Date</th>
+
                     <th>End Date</th>
+
                 </tr>
 
             </thead>
 
+
             <tbody id="drivesTable">
 
                 <tr>
-                    <td colspan="5" class="empty">
+
+                    <td
+                        colspan="5"
+                        class="empty">
+
                         No drives available
+
                     </td>
+
                 </tr>
 
             </tbody>
@@ -509,15 +890,28 @@
 
     </div>
 
+
 </div>
 
 
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer>
+
     DonateHub &copy; 2026
+
 </footer>
 
 
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
 <script src="script.js"></script>
 
+
 </body>
+
 </html>

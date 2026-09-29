@@ -24,24 +24,30 @@
             background: #f4f6f8;
         }
 
-        .login-container {
-            width: 380px;
+        .container {
+            width: 400px;
             background: white;
             padding: 35px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
         }
 
-        .login-container h1 {
+        h1 {
             text-align: center;
             color: #2c3e50;
             margin-bottom: 8px;
         }
 
-        .login-container p {
+        .subtitle {
             text-align: center;
             color: #777;
             margin-bottom: 25px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
         }
 
         label {
@@ -74,10 +80,39 @@
             opacity: 0.9;
         }
 
-        #message {
+        .secondary-button {
+            background: white;
+            color: #2c3e50;
+            border: 1px solid #2c3e50;
+            margin-top: 10px;
+        }
+
+        .message {
             margin-top: 15px;
             text-align: center;
             font-size: 14px;
+            min-height: 20px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 18px;
+            color: #666;
+        }
+
+        .switch-text a {
+            color: #2c3e50;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
         }
 
     </style>
@@ -86,45 +121,121 @@
 
 <body>
 
-<div class="login-container">
+<div class="container">
 
     <h1>DonateHub</h1>
 
-    <p>Login to Donation Management System</p>
+    <p class="subtitle">
+        Donation Management System
+    </p>
 
-    <form id="loginForm">
 
-        <label for="username">
-            Username
-        </label>
+    <!-- LOGIN FORM -->
+    <div id="loginSection" class="form-section active">
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Enter username"
-            required
-        >
+        <h2>Login</h2>
 
-        <label for="password">
-            Password
-        </label>
+        <form id="loginForm">
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            required
-        >
+            <label for="loginUsername">
+                Username
+            </label>
 
-        <button type="submit">
-            Login
-        </button>
+            <input
+                type="text"
+                id="loginUsername"
+                placeholder="Enter username"
+                required
+            >
 
-    </form>
+            <label for="loginPassword">
+                Password
+            </label>
 
-    <div id="message"></div>
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <div id="loginMessage" class="message"></div>
+
+        <p class="switch-text">
+            New user?
+            <a onclick="showRegister()">
+                Create an account
+            </a>
+        </p>
+
+    </div>
+
+
+    <!-- REGISTER FORM -->
+    <div id="registerSection" class="form-section">
+
+        <h2>Create Account</h2>
+
+        <form id="registerForm">
+
+            <label for="registerUsername">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="registerUsername"
+                placeholder="Choose a username"
+                required
+            >
+
+            <label for="registerPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Choose a password"
+                required
+            >
+
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Re-enter password"
+                required
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <div id="registerMessage" class="message"></div>
+
+        <p class="switch-text">
+            Already have an account?
+            <a onclick="showLogin()">
+                Login
+            </a>
+        </p>
+
+    </div>
 
 </div>
+
 
 <script src="login.js"></script>
 
